@@ -20,6 +20,7 @@ To install the charts you will need a namespace in a Kubernetes cluster availabl
 
 To install both charts, execute the following commands:
 
+```
 cd call-centre-dashboard
 helm dependency build
 helm -n project-call-centre upgrade --install dashboard .
@@ -29,3 +30,4 @@ cd call-centre-digital-twin
 helm dependency build
 helm -n project-call-centre upgrade --install digitaltwin .
 cd ..
+```
