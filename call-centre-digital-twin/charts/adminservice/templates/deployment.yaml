@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "adminservice.fullname" . }}
+  labels:
+    {{- include "adminservice.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "adminservice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "adminservice.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "adminservice.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /_/health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /_/health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: ADMIN_SERVICE_QUEUE_ADDRESS
+              value: {{ .Release.Name }}-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
+            - name: ADMIN_SERVICE_QUEUE_PORT
+              value: "5672"
+            - name: ADMIN_SERVICE_QUEUE_USER
+              value: user
+            - name: ADMIN_SERVICE_QUEUE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-rabbitmq
+                  key: rabbitmq-password
+                  optional: false 
+            - name: ADMIN_SERVICE_LOAD_GENERATOR_URL
+              value: loadgenerator.{{ .Release.Namespace }}.svc.cluster.local
+            - name: ADMIN_SERVICE_CALL_REPORTING_URL
+              value: {{ .Values.app.callReportingURL }}
+            - name: ADMIN_SERVICE_KUBERNETES_NAME_SPACE
+              value: {{ .Release.Namespace }}
+            - name: ADMIN_SERVICE_WORKER_IMAGE
+              value: {{ .Values.app.workerImage }}
+            - name: ADMIN_SERVICE_MY_REPORTING_URL
+              value: {{ .Values.app.myReportingURL }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
