@@ -1,16 +1,15 @@
 adminservice:
   app:
-    app:
-      callReportingURL: https://dashboard-service.dashboard.callcentre.betalab.rp.bt.com/api/v1/report
-      myReportingURL: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1/report
-      workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:e71fbfe868865d2e8d32c1ef66ef7dfc285ef08f
+    callReportingURL: https://dashboard-service.dashboard.callcentre.betalab.rp.bt.com/api/v1/report
+    myReportingURL: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1/report
+    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:e71fbfe868865d2e8d32c1ef66ef7dfc285ef08f
 
   ingress:
     enabled: true
     annotations:
       kubernetes.io/ingress.class: nginx-production
     hosts:
-      - host: admin-service.digitalswin.callcentre.betalab.rp.bt.com
+      - host: admin-service.digitaltwin.callcentre.betalab.rp.bt.com
         paths:
           - path: /
             pathType: ImplementationSpecific
