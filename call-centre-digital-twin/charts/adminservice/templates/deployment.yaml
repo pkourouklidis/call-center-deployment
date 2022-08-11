@@ -50,31 +50,31 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: production
-            - name: ADMIN_SERVICE_QUEUEADDRESS
+            - name: ADMINSERVICE_QUEUE_ADDRESS
               value: {{ .Release.Name }}-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
-            - name: ADMIN_SERVICE_QUEUEPORTSTRING
+            - name: ADMINSERVICE_QUEUE_PORT_STRING
               value: "5672"
-            - name: ADMIN_SERVICE_QUEUEUSER
+            - name: ADMINSERVICE_QUEUE_USER
               value: user
-            - name: ADMIN_SERVICE_QUEUEPASSWORD
+            - name: ADMINSERVICE_QUEUE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-rabbitmq
                   key: rabbitmq-password
                   optional: false 
-            - name: ADMIN_SERVICE_LOADGENERATORURL
+            - name: ADMINSERVICE_LOAD_GENERATOR_URL
               value: loadgenerator.{{ .Release.Namespace }}.svc.cluster.local
-            - name: ADMIN_SERVICE_CALLREPORTINGURL
+            - name: ADMINSERVICE_CALL_REPORTING_URL
               value: {{ .Values.app.callReportingURL }}
-            - name: ADMIN_SERVICE_KUBERNETESNAMESPACE
+            - name: ADMINSERVICE_KUBERNETES_NAME_SPACE
               value: {{ .Release.Namespace }}
-            - name: ADMIN_SERVICE_WORKERIMAGE
+            - name: ADMINSERVICE_WORKER_IMAGE
               value: {{ .Values.app.workerImage }}
-            - name: ADMIN_SERVICE_MYREPORTINGURL
+            - name: ADMINSERVICE_MY_REPORTING_URL
               value: {{ .Values.app.myReportingURL }}
-            - name: ADMIN_SERVICE_MYREPORTINGUSER
+            - name: ADMINSERVICE_MY_REPORTING_URL_USER
               value: {{ .Values.app.myReportingUser }}
-            - name: ADMIN_SERVICE_MYREPORTINGPASSWORD
+            - name: ADMINSERVICE_MY_REPORTING_URL_PASSWORD
               value: {{ .Values.app.myReportingPassword }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
