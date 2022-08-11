@@ -2,7 +2,7 @@ adminservice:
   app:
     app:
       callReportingURL: https://dashboard-service.dashboard.callcentre.betalab.rp.bt.com/api/v1/report
-      myReportingURL: https://admin-service.digitalswin.callcentre.betalab.rp.bt.com/api/v1/report
+      myReportingURL: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1/report
       workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:e71fbfe868865d2e8d32c1ef66ef7dfc285ef08f
 
   ingress:
