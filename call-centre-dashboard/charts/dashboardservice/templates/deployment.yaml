@@ -50,7 +50,7 @@ spec:
             - name: JAVA_TOOL_OPTIONS
               value: "-Dspring.profiles.active={{ .Values.app.springProfile}}"
             - name: DASHBOARDSERVICE_DATASERVICEURL
-              value: {{ .Release.Name }}-data-service.{{ .Release.Namespace }}.svc.cluster.local
+              value: {{ .Release.Name }}-dataservice.{{ .Release.Namespace }}.svc.cluster.local
             - name: DASHBOARDSERVICE_ADMINSERVICEURL
               value: {{ .Values.app.adminServiceURL }}
       {{- with .Values.nodeSelector }}
