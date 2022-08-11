@@ -45,6 +45,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: production
             - name: JAVA_TOOL_OPTIONS
               value: "-Dspring.profiles.active={{ .Values.app.springProfile}}"
             - name: DATASERVICE_AISERVICEURL

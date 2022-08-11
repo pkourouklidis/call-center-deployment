@@ -48,28 +48,34 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - name: ADMIN_SERVICE_QUEUE_ADDRESS
+            - name: SPRING_PROFILES_ACTIVE
+              value: production
+            - name: ADMIN_SERVICE_QUEUEADDRESS
               value: {{ .Release.Name }}-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
-            - name: ADMIN_SERVICE_QUEUE_PORT
+            - name: ADMIN_SERVICE_QUEUEPORTSTRING
               value: "5672"
-            - name: ADMIN_SERVICE_QUEUE_USER
+            - name: ADMIN_SERVICE_QUEUEUSER
               value: user
-            - name: ADMIN_SERVICE_QUEUE_PASSWORD
+            - name: ADMIN_SERVICE_QUEUEPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-rabbitmq
                   key: rabbitmq-password
                   optional: false 
-            - name: ADMIN_SERVICE_LOAD_GENERATOR_URL
+            - name: ADMIN_SERVICE_LOADGENERATORURL
               value: loadgenerator.{{ .Release.Namespace }}.svc.cluster.local
-            - name: ADMIN_SERVICE_CALL_REPORTING_URL
+            - name: ADMIN_SERVICE_CALLREPORTINGURL
               value: {{ .Values.app.callReportingURL }}
-            - name: ADMIN_SERVICE_KUBERNETES_NAME_SPACE
+            - name: ADMIN_SERVICE_KUBERNETESNAMESPACE
               value: {{ .Release.Namespace }}
-            - name: ADMIN_SERVICE_WORKER_IMAGE
+            - name: ADMIN_SERVICE_WORKERIMAGE
               value: {{ .Values.app.workerImage }}
-            - name: ADMIN_SERVICE_MY_REPORTING_URL
+            - name: ADMIN_SERVICE_MYREPORTINGURL
               value: {{ .Values.app.myReportingURL }}
+            - name: ADMIN_SERVICE_MYREPORTINGUSER
+              value: {{ .Values.app.myReportingUser }}
+            - name: ADMIN_SERVICE_MYREPORTINGPASSWORD
+              value: {{ .Values.app.myReportingPassword }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

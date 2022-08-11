@@ -1,6 +1,8 @@
 app:
   callReportingURL: tobeset
   myReportingURL: tobeset
+  myReportingUser: tobeset
+  myReportingPassword: tobeset
   workerImage: tobeset
 
 replicaCount: 1

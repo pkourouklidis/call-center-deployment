@@ -48,6 +48,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: production
             - name: LOAD_GENERATOR_QUEUE_ADDRESS
               value: {{ .Release.Name }}-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
             - name: LOAD_GENERATOR_QUEUE_PORT
