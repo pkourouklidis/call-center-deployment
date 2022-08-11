@@ -21,7 +21,7 @@ dataservice:
 
 dashboardservice:
   app:
-    adminServiceURL: admin-service.digitalswin.callcentre.betalab.rp.bt.com
+    adminServiceURL: admin-service.digitaltwin.callcentre.betalab.rp.bt.com
     springProfile: production
   
   ingress:
