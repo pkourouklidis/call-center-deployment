@@ -50,13 +50,13 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: production
-            - name: LOAD_GENERATOR_QUEUE_ADDRESS
+            - name: LOADGENERATOR_QUEUE_ADDRESS
               value: {{ .Release.Name }}-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
-            - name: LOAD_GENERATOR_QUEUE_PORT
+            - name: LOADGENERATOR_QUEUE_PORT_STRING
               value: "5672"
-            - name: LOAD_GENERATOR_QUEUE_USER
+            - name: LOADGENERATOR_QUEUE_USER
               value: user
-            - name: LOAD_GENERATORE_QUEUE_PASSWORD
+            - name: LOADGENERATOR_QUEUE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-rabbitmq
