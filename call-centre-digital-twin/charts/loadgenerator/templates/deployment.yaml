@@ -62,6 +62,8 @@ spec:
                   name: {{ .Release.Name }}-rabbitmq
                   key: rabbitmq-password
                   optional: false
+            - name: LOADGENERATOR_QUEUE_NAME
+              value: calls
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
