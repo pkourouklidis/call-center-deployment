@@ -63,7 +63,7 @@ spec:
                   key: rabbitmq-password
                   optional: false 
             - name: ADMINSERVICE_LOAD_GENERATOR_URL
-              value: {{ .Release.Name }}-loadgenerator.{{ .Release.Namespace }}.svc.cluster.local
+              value: http://{{ .Release.Name }}-loadgenerator.{{ .Release.Namespace }}.svc.cluster.local/api/v1/generate
             - name: ADMINSERVICE_CALL_REPORTING_URL
               value: {{ .Values.app.callReportingURL }}
             - name: ADMINSERVICE_KUBERNETES_NAME_SPACE
