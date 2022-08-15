@@ -54,6 +54,8 @@ spec:
               value: {{ .Release.Name }}-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
             - name: ADMINSERVICE_QUEUE_PORT_STRING
               value: "5672"
+            - name: ADMINSERVICE_QUEUE_API_PORT_STRING
+              value: "15672"
             - name: ADMINSERVICE_QUEUE_USER
               value: user
             - name: ADMINSERVICE_QUEUE_PASSWORD
