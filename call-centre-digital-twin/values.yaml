@@ -4,7 +4,7 @@ adminservice:
     myReportingURL: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1/report
     myReportingUser: worker
     myReportingPassword: w0rk3rP4ssW0rd
-    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:e71fbfe868865d2e8d32c1ef66ef7dfc285ef08f
+    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:98947954dff604af105f7336abd2ab3fbc36ecd3
 
   ingress:
     enabled: true
