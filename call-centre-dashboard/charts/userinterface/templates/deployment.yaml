@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "userinterface.fullname" . }}
+  labels:
+    {{- include "userinterface.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "userinterface.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "userinterface.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "userinterface.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: REACT_APP_AUTH_PROVIDER_URL
+              value: {{ .Values.app.auth.providerUrl }}
+            - name: REACT_APP_AUTH_TENANT_ID
+              value: {{ .Values.app.auth.tenantId }}
+            - name: REACT_APP_AUTH_CLIENT_ID
+              value: {{ .Values.app.auth.clientId }}
+            - name: REACT_APP_AUTH_LIB
+              value: {{ .Values.app.auth.lib }}
+            - name: REACT_APP_GATEWAY_URL
+              value: {{ .Values.app.gatewayUrl }}
+            - name: REACT_APP_NAME
+              value: {{ .Values.app.name }}
+            - name: REACT_APP_HAMBURGER_MENU
+              value: {{ .Values.app.hamburgerMenu }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
