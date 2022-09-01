@@ -2,9 +2,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "adminservice.serviceAccountName" . }}-role
+  name: {{ include "userinterface.serviceAccountName" . }}-role
   labels:
-    {{- include "adminservice.labels" . | nindent 4 }}
+    {{- include "userinterface.labels" . | nindent 4 }}
 rules:
 - apiGroups:
   - "apps"

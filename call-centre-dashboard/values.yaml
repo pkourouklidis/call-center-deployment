@@ -38,3 +38,27 @@ dashboardservice:
           hosts:
             - '*.dashboard.callcentre.betalab.rp.bt.com'
             - '*.digitaltwin.callcentre.betalab.rp.bt.com'
+
+userinterface:
+  app:
+    auth:
+      providerUrl: https://keycloak.auth.betalab.rp.bt.com/auth/realms
+      tenantId: master
+      clientId: callcentre-dashboard-ui
+      lib: OIDC
+    gatewayUrl: https://dashboard-service.dashboard.callcentre.betalab.rp.bt.com/api/v1
+    name: "Call Centre Dashboard"
+    hamburgerMenu: "no"
+  
+  ingress:
+      enabled: true
+      hosts:
+        - host: ui.dashboard.callcentre.betalab.rp.bt.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: call-centre-demo-tls
+          hosts:
+            - '*.dashboard.callcentre.betalab.rp.bt.com'
+            - '*.digitaltwin.callcentre.betalab.rp.bt.com'

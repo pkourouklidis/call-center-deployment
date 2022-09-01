@@ -1,12 +1,12 @@
 app:
   auth:
-    providerUrl: https://keycloak.auth.betalab.rp.bt.com/auth/realms
-    tenantId: master
-    clientId: kleio-ui-dev
-    lib: OIDC
-  gatewayUrl: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1
-  name: "Call Centre Admin Panel"
-  hamburgerMenu: "no"
+    providerUrl: tobeset
+    tenantId: tobeset
+    clientId: tobeset
+    lib: tobeset
+  gatewayUrl: tobeset
+  name: tobeset
+  hamburgerMenu: tobeset
 
 replicaCount: 1
 

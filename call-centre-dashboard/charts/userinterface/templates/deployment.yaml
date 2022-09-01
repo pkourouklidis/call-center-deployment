@@ -41,19 +41,19 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: REACT_APP_AUTH_PROVIDER_URL
-              value: {{ .Values.app.auth.providerUrl }}
+              value: {{ .Values.app.auth.providerUrl | quote }}
             - name: REACT_APP_AUTH_TENANT_ID
-              value: {{ .Values.app.auth.tenantId }}
+              value: {{ .Values.app.auth.tenantId | quote }}
             - name: REACT_APP_AUTH_CLIENT_ID
-              value: {{ .Values.app.auth.clientId }}
+              value: {{ .Values.app.auth.clientId | quote }}
             - name: REACT_APP_AUTH_LIB
-              value: {{ .Values.app.auth.lib }}
+              value: {{ .Values.app.auth.lib | quote }}
             - name: REACT_APP_GATEWAY_URL
-              value: {{ .Values.app.gatewayUrl }}
+              value: {{ .Values.app.gatewayUrl | quote }}
             - name: REACT_APP_NAME
-              value: {{ .Values.app.name }}
+              value: {{ .Values.app.name | quote }}
             - name: REACT_APP_HAMBURGER_MENU
-              value: {{ .Values.app.hamburgerMenu }}
+              value: {{ .Values.app.hamburgerMenu | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
