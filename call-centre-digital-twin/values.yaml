@@ -1,25 +1,23 @@
 adminservice:
   app:
-    callReportingURL: https://dashboard-service.dashboard.callcentre.betalab.rp.bt.com/api/v1/report
-    myReportingURL: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1/report
+    callReportingURL: http://dashboard-dashboardservice.istio-system.svc.cluster.local/api/v1/report
+    myReportingURL: http://digitaltwin-adminservice.istio-system.svc.cluster.local/api/v1/report
     myReportingUser: worker
     myReportingPassword: w0rk3rP4ssW0rd
-    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:98947954dff604af105f7336abd2ab3fbc36ecd3
-
+    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:105e33660e67a967099dfe837c54925213ff9cc2
   ingress:
     enabled: true
     annotations:
-      kubernetes.io/ingress.class: nginx-production
+      kubernetes.io/ingress.class: istio
     hosts:
-      - host: admin-service.digitaltwin.callcentre.betalab.rp.bt.com
+      - host: admin-service.digitaltwin.callcentre.panoptes.betalab.rp.bt.com
         paths:
           - path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
     tls:
-      - secretName: call-centre-demo-tls
+      - secretName: admin-digital-twin-cert
         hosts:
-          - '*.dashboard.callcentre.betalab.rp.bt.com'
-          - '*.digitaltwin.callcentre.betalab.rp.bt.com'
+          - admin-service.digitaltwin.callcentre.panoptes.betalab.rp.bt.com
 
 userinterface:
   app:
@@ -28,19 +26,20 @@ userinterface:
       tenantId: master
       clientId: callcentre-admin-ui
       lib: OIDC
-    gatewayUrl: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com/api/v1
+    gatewayUrl: https://admin-service.digitaltwin.callcentre.panoptes.betalab.rp.bt.com/api/v1
     name: "Call Centre Admin Panel"
     hamburgerMenu: "no"
   
   ingress:
     enabled: true
+    annotations:
+      kubernetes.io/ingress.class: istio    
     hosts:
-      - host: ui.digitaltwin.callcentre.betalab.rp.bt.com
+      - host: ui.digitaltwin.callcentre.panoptes.betalab.rp.bt.com
         paths:
           - path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
     tls:
-      - secretName: call-centre-demo-tls
+      - secretName: ui-digital-twin-cert
         hosts:
-          - '*.dashboard.callcentre.betalab.rp.bt.com'
-          - '*.digitaltwin.callcentre.betalab.rp.bt.com'
+          - ui.digitaltwin.callcentre.panoptes.betalab.rp.bt.com

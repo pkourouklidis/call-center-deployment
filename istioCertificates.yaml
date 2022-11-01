@@ -1,0 +1,64 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: backend-dashboard-cert
+  namespace: istio-system
+spec:
+  secretName: backend-dashboard-cert
+  dnsNames:
+  - backend.dashboard.callcentre.panoptes.betalab.rp.bt.com
+  issuerRef:
+    name: panoptes-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: data-dashboard-cert
+  namespace: istio-system
+spec:
+  secretName: data-dashboard-cert
+  dnsNames:
+  - data.dashboard.callcentre.panoptes.betalab.rp.bt.com
+  issuerRef:
+    name: panoptes-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ui-dashboard-cert
+  namespace: istio-system
+spec:
+  secretName: ui-dashboard-cert
+  dnsNames:
+  - ui.dashboard.callcentre.panoptes.betalab.rp.bt.com
+  issuerRef:
+    name: panoptes-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: admin-digital-twin-cert
+  namespace: istio-system
+spec:
+  secretName: admin-digital-twin-cert
+  dnsNames:
+  - admin-service.digitaltwin.callcentre.panoptes.betalab.rp.bt.com
+  issuerRef:
+    name: panoptes-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ui-digital-twin-cert
+  namespace: istio-system
+spec:
+  secretName: ui-digital-twin-cert
+  dnsNames:
+  - ui.digitaltwin.callcentre.panoptes.betalab.rp.bt.com
+  issuerRef:
+    name: panoptes-issuer
+    kind: ClusterIssuer

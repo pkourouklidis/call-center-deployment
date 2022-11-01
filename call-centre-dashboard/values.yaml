@@ -1,43 +1,27 @@
 dataservice:
   app:
-    aiServiceURL: http://callcenter.kubeflow-user-example-com.panoptes.uk/v2/models/callcenter/infer
+    aiServiceURL: http://callcenter.kubeflow-user-example-com.svc.cluster.local/v2/models/callcenter/infer
+    springProfile: production
+
+dashboardservice:
+  app:
+    adminServiceURL: http://digitaltwin-adminservice.istio-system.svc.cluster.local
+    panoptesModelURL: http://panoptes-orchestrator.panoptes.svc.cluster.local
     springProfile: production
 
   ingress:
     enabled: true
     annotations:
-      kubernetes.io/ingress.class: nginx-production
+      kubernetes.io/ingress.class: istio
     hosts:
-      - host: data-service.dashboard.callcentre.betalab.rp.bt.com
+      - host: backend.dashboard.callcentre.panoptes.betalab.rp.bt.com
         paths:
           - path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
     tls:
-      - secretName: call-centre-demo-tls
+      - secretName: backend-dashboard-cert
         hosts:
-          - '*.dashboard.callcentre.betalab.rp.bt.com'
-          - '*.digitaltwin.callcentre.betalab.rp.bt.com'
-
-
-dashboardservice:
-  app:
-    adminServiceURL: https://admin-service.digitaltwin.callcentre.betalab.rp.bt.com
-    springProfile: production
-  
-  ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: nginx-production
-      hosts:
-        - host: dashboard-service.dashboard.callcentre.betalab.rp.bt.com
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - secretName: call-centre-demo-tls
-          hosts:
-            - '*.dashboard.callcentre.betalab.rp.bt.com'
-            - '*.digitaltwin.callcentre.betalab.rp.bt.com'
+          - backend.dashboard.callcentre.panoptes.betalab.rp.bt.com
 
 userinterface:
   app:
@@ -46,19 +30,20 @@ userinterface:
       tenantId: master
       clientId: callcentre-dashboard-ui
       lib: OIDC
-    gatewayUrl: https://dashboard-service.dashboard.callcentre.betalab.rp.bt.com/api/v1
+    gatewayUrl: https://backend.dashboard.callcentre.panoptes.betalab.rp.bt.com/api/v1
     name: "Call Centre Dashboard"
     hamburgerMenu: "no"
-  
+
   ingress:
-      enabled: true
-      hosts:
-        - host: ui.dashboard.callcentre.betalab.rp.bt.com
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - secretName: call-centre-demo-tls
-          hosts:
-            - '*.dashboard.callcentre.betalab.rp.bt.com'
-            - '*.digitaltwin.callcentre.betalab.rp.bt.com'
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: istio
+    hosts:
+      - host: ui.dashboard.callcentre.panoptes.betalab.rp.bt.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: ui-dashboard-cert
+        hosts:
+          - ui.dashboard.callcentre.panoptes.betalab.rp.bt.com

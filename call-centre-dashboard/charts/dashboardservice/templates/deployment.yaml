@@ -53,6 +53,8 @@ spec:
               value: {{ .Release.Name }}-dataservice.{{ .Release.Namespace }}.svc.cluster.local
             - name: DASHBOARDSERVICE_ADMINSERVICEURL
               value: {{ .Values.app.adminServiceURL }}
+            - name: DASHBOARDSERVICE_PANOPTESMODELURL
+              value: {{.Values.app.panoptesModelURL}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
