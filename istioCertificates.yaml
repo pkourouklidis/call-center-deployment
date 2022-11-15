@@ -14,19 +14,6 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: data-dashboard-cert
-  namespace: istio-system
-spec:
-  secretName: data-dashboard-cert
-  dnsNames:
-  - data.dashboard.callcentre.panoptes.betalab.rp.bt.com
-  issuerRef:
-    name: panoptes-issuer
-    kind: ClusterIssuer
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
   name: ui-dashboard-cert
   namespace: istio-system
 spec:
