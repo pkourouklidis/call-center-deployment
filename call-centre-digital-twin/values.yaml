@@ -4,7 +4,7 @@ adminservice:
     myReportingURL: http://digitaltwin-adminservice.istio-system.svc.cluster.local/api/v1/report
     myReportingUser: worker
     myReportingPassword: w0rk3rP4ssW0rd
-    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:105e33660e67a967099dfe837c54925213ff9cc2
+    workerImage: registry.docker.nat.bt.com/betalab-callcentre-digitaltwin/callcentre-digitaltwin-worker:test2
   ingress:
     enabled: true
     annotations:
